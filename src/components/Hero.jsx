@@ -1,25 +1,15 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, ArrowDown } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
 const Hero = () => {
-  const [avatarError, setAvatarError] = useState(false);
+  const navigate = useNavigate();
 
-  const scrollToContact = () => {
-    const element = document.querySelector('#contact');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const scrollToProjects = () => {
-    const element = document.querySelector('#projects');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  const goToContact = () => navigate('/contact');
+  const goToProjects = () => navigate('/projects');
 
   return (
     <section
@@ -93,14 +83,14 @@ const Hero = () => {
               className='flex flex-col sm:flex-row gap-4 justify-center items-center mb-12'
             >
               <Button
-                onClick={scrollToProjects}
+                onClick={goToProjects}
                 size='lg'
                 className='bg-gradient-to-r from-sky-600 to-amber-500 hover:from-sky-700 hover:to-amber-500 text-white px-8 py-6 text-lg font-semibold rounded-lg shadow-lg shadow-sky-500/30 transition-all duration-300 hover:shadow-sky-500/50 hover:scale-105'
               >
                 Ver Proyectos
               </Button>
               <Button
-                onClick={scrollToContact}
+                onClick={goToContact}
                 variant='outline'
                 size='lg'
                 className='border-2 border-white/20 text-slate-100 hover:bg-white/10 px-8 py-6 text-lg font-semibold rounded-lg transition-all duration-300 hover:scale-105'
@@ -126,7 +116,7 @@ const Hero = () => {
                 <Github size={28} />
               </motion.a>
               <motion.a
-                href='https://www.linkedin.com/in/adrianrubiocalixto'
+                href='https://www.linkedin.com/in/adrianrubiocalixto/'
                 target='_blank'
                 rel='noopener noreferrer'
                 whileHover={{ scale: 1.2, rotate: 5 }}

@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import { NavLink } from 'react-router-dom';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -16,23 +17,14 @@ const Navigation = () => {
   }, []);
 
   const navItems = [
-    { name: 'Inicio', href: '#hero' },
-    { name: 'Sobre Mí', href: '#about' },
-    { name: 'Proyectos', href: '#projects' },
-    { name: 'Habilidades', href: '#skills' },
-    { name: 'Experiencia', href: '#experience' },
-    { name: 'Certificaciones', href: '#certifications' },
-    { name: 'Contacto', href: '#contact' }
+    { name: 'Inicio', to: '/' },
+    { name: 'Sobre Mí', to: '/about' },
+    { name: 'Proyectos', to: '/projects' },
+    { name: 'Habilidades', to: '/skills' },
+    { name: 'Experiencia', to: '/experience' },
+    { name: 'Certificaciones', to: '/certifications' },
+    { name: 'Contacto', to: '/contact' }
   ];
-
-  const scrollToSection = (e, href) => {
-    e.preventDefault();
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsMobileMenuOpen(false);
-    }
-  };
 
   return (
     <motion.nav
@@ -45,31 +37,38 @@ const Navigation = () => {
     >
       <div className='container mx-auto px-4 lg:px-8'>
         <div className='flex items-center justify-between h-16'>
-          <motion.a
-            href='#hero'
-            onClick={(e) => scrollToSection(e, '#hero')}
-            className='text-xl font-bold bg-gradient-to-r from-sky-300 via-sky-100 to-amber-300 bg-clip-text text-transparent'
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            {'<Adrián Rubio />'}
-          </motion.a>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <NavLink
+              to='/'
+              className='text-xl font-bold bg-gradient-to-r from-sky-300 via-sky-100 to-amber-300 bg-clip-text text-transparent'
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              {'<Adrián Rubio />'}
+            </NavLink>
+          </motion.div>
 
           <div className='hidden md:flex items-center space-x-1'>
             {navItems.map((item, index) => (
-              <motion.a
+              <motion.div
                 key={item.name}
-                href={item.href}
-                onClick={(e) => scrollToSection(e, item.href)}
-                className='px-4 py-2 text-sm font-medium text-slate-200 hover:text-amber-300 transition-colors duration-200 relative group'
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ scale: 1.05 }}
               >
-                {item.name}
-                <span className='absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-sky-400 to-amber-400 group-hover:w-full transition-all duration-300'></span>
-              </motion.a>
+                <NavLink
+                  to={item.to}
+                  className={({ isActive }) =>
+                    `px-4 py-2 text-sm font-medium transition-colors duration-200 relative group ${
+                      isActive ? 'text-amber-300' : 'text-slate-200 hover:text-amber-300'
+                    }`
+                  }
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.name}
+                  <span className='absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-sky-400 to-amber-400 group-hover:w-full transition-all duration-300'></span>
+                </NavLink>
+              </motion.div>
             ))}
           </div>
 
@@ -91,14 +90,20 @@ const Navigation = () => {
           >
             <div className='flex flex-col space-y-2 p-4'>
               {navItems.map((item) => (
-                <a
+                <NavLink
                   key={item.name}
-                  href={item.href}
-                  onClick={(e) => scrollToSection(e, item.href)}
-                  className='px-4 py-3 text-sm font-medium text-slate-200 hover:text-amber-300 hover:bg-slate-800/60 rounded-lg transition-all duration-200'
+                  to={item.to}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={({ isActive }) =>
+                    `px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 ${
+                      isActive
+                        ? 'text-amber-300 bg-slate-800/60'
+                        : 'text-slate-200 hover:text-amber-300 hover:bg-slate-800/60'
+                    }`
+                  }
                 >
                   {item.name}
-                </a>
+                </NavLink>
               ))}
             </div>
           </motion.div>

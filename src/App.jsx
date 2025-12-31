@@ -1,16 +1,18 @@
 
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { Routes, Route } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
-import Hero from '@/components/Hero';
-import About from '@/components/About';
-import Projects from '@/components/Projects';
-import Skills from '@/components/Skills';
-import Experience from '@/components/Experience';
-import Certifications from '@/components/Certifications';
-import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import { Toaster } from '@/components/ui/toaster';
+import Home from '@/pages/Home';
+import AboutPage from '@/pages/AboutPage';
+import ProjectsPage from '@/pages/ProjectsPage';
+import SkillsPage from '@/pages/SkillsPage';
+import ExperiencePage from '@/pages/ExperiencePage';
+import CertificationsPage from '@/pages/CertificationsPage';
+import ContactPage from '@/pages/ContactPage';
+import NotFoundPage from '@/pages/NotFoundPage';
 
 function App() {
   return (
@@ -21,14 +23,17 @@ function App() {
       </Helmet>
       <div className='min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-black text-white'>
         <Navigation />
-        <main>
-          <Hero />
-          <About />
-          <Projects />
-          <Skills />
-          <Experience />
-          <Certifications />
-          <Contact />
+        <main className='pt-16'>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/about' element={<AboutPage />} />
+            <Route path='/projects' element={<ProjectsPage />} />
+            <Route path='/skills' element={<SkillsPage />} />
+            <Route path='/experience' element={<ExperiencePage />} />
+            <Route path='/certifications' element={<CertificationsPage />} />
+            <Route path='/contact' element={<ContactPage />} />
+            <Route path='*' element={<NotFoundPage />} />
+          </Routes>
         </main>
         <Footer />
         <Toaster />
