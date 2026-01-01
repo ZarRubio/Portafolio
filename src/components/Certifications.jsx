@@ -45,7 +45,7 @@ const Certifications = () => {
   };
 
   return (
-    <section id='certifications' className='py-20 lg:py-32 relative overflow-hidden'>
+    <section id='certifications' className='py-20 lg:py-32 relative'>
       <div className='absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/10 to-transparent'></div>
       
       <div className='container mx-auto px-4 lg:px-8 relative z-10' ref={ref}>
@@ -55,7 +55,7 @@ const Certifications = () => {
           transition={{ duration: 0.8 }}
           className='text-center mb-16'
         >
-          <h2 className='text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-sky-300 to-amber-300 bg-clip-text text-transparent'>
+          <h2 className='text-4xl md:text-5xl font-bold leading-tight md:leading-[1.15] mb-4 bg-gradient-to-r from-sky-300 to-amber-300 bg-clip-text text-transparent'>
             Logros clave
           </h2>
           <div className='w-20 h-1 bg-gradient-to-r from-sky-500 to-amber-400 mx-auto rounded-full'></div>
@@ -80,7 +80,7 @@ const Certifications = () => {
                 </span>
               </div>
 
-              <h3 className='text-lg font-bold text-white mb-2 group-hover:text-amber-300 transition-colors duration-300'>
+              <h3 className='text-lg font-bold leading-snug text-white mb-2 group-hover:text-amber-300 transition-colors duration-300'>
                 {cert.name}
               </h3>
               

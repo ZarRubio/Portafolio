@@ -59,14 +59,16 @@ const Navigation = () => {
                 <NavLink
                   to={item.to}
                   className={({ isActive }) =>
-                    `px-4 py-2 text-sm font-medium transition-colors duration-200 relative group ${
-                      isActive ? 'text-amber-300' : 'text-slate-200 hover:text-amber-300'
+                    `px-3 py-2 text-sm font-medium rounded-lg border transition-all duration-200 relative group ${
+                      isActive
+                        ? 'text-amber-200 border-amber-500/50 bg-amber-500/10 shadow-[0_6px_20px_rgba(251,191,36,0.08)]'
+                        : 'text-slate-200 border-white/10 bg-white/5 hover:text-amber-200 hover:border-amber-500/30 hover:bg-amber-500/5'
                     }`
                   }
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.name}
-                  <span className='absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-sky-400 to-amber-400 group-hover:w-full transition-all duration-300'></span>
+                  <span className='absolute bottom-1 left-2 h-0.5 w-0 bg-gradient-to-r from-sky-400 to-amber-400 group-hover:w-8 transition-all duration-300'></span>
                 </NavLink>
               </motion.div>
             ))}
@@ -95,10 +97,10 @@ const Navigation = () => {
                   to={item.to}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={({ isActive }) =>
-                    `px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 ${
+                    `px-4 py-3 text-sm font-medium rounded-lg border transition-all duration-200 ${
                       isActive
-                        ? 'text-amber-300 bg-slate-800/60'
-                        : 'text-slate-200 hover:text-amber-300 hover:bg-slate-800/60'
+                        ? 'text-amber-200 bg-amber-500/10 border-amber-500/40'
+                        : 'text-slate-200 border-white/10 bg-white/5 hover:text-amber-200 hover:border-amber-500/30 hover:bg-amber-500/5'
                     }`
                   }
                 >

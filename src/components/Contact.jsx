@@ -72,20 +72,42 @@ const Contact = () => {
           </p>
         </motion.div>
 
-        <div className='max-w-6xl mx-auto grid lg:grid-cols-2 gap-12'>
+        <div className='max-w-6xl mx-auto grid lg:grid-cols-[1.05fr_0.95fr] gap-12 items-start'>
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8 }}
+            className='space-y-6'
           >
-            <div className='space-y-6 mb-8'>
+            <div className='glass-panel rounded-2xl p-6 border border-white/10 shadow-2xl shadow-black/40 flex items-center gap-4'>
+              <img
+                src='/avatar3.jpeg'
+                alt='Retrato de Adrián Gustavo Rubio Calixto'
+                className='h-20 w-20 rounded-full object-cover border border-white/10 shadow-md'
+                loading='lazy'
+              />
+              <div className='flex-1'>
+                <p className='text-sm text-slate-300'>Disponibilidad</p>
+                <p className='text-lg font-semibold text-white'>Lima · Remoto/Híbrido</p>
+                <div className='flex flex-wrap gap-2 mt-2'>
+                  {["APIs & Backend", "Performance web", "E-commerce", "Consultoría técnica"].map((tag) => (
+                    <span key={tag} className='px-3 py-2 rounded-full text-xs text-amber-100 bg-amber-500/10 border border-amber-400/30'>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <span className='px-3 py-1 rounded-full text-xs text-emerald-200 bg-emerald-500/15 border border-emerald-400/40 whitespace-nowrap'>Respuesta 24-48h</span>
+            </div>
+
+            <div className='space-y-4'>
               {contactInfo.map((info, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, x: -30 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ delay: index * 0.1 }}
-                  className='flex items-start gap-4 glass-panel rounded-xl p-6 hover:border-amber-400/40 transition-all duration-300 group'
+                  transition={{ delay: index * 0.08 }}
+                  className='flex items-start gap-4 glass-panel rounded-xl p-5 hover:border-amber-400/40 transition-all duration-300 group'
                 >
                   <div className='w-12 h-12 bg-gradient-to-br from-sky-500/20 to-amber-500/20 rounded-lg flex items-center justify-center text-amber-300 group-hover:scale-110 transition-transform duration-300'>
                     {info.icon}
@@ -110,13 +132,15 @@ const Contact = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.4 }}
-              className='glass-panel rounded-xl p-6'
+              transition={{ delay: 0.35 }}
+              className='glass-panel rounded-xl p-6 border border-white/10'
             >
-              <h3 className='text-xl font-bold text-white mb-4'>Horario de Respuesta</h3>
-              <p className='text-slate-300'>
-                Generalmente respondo dentro de 24-48 horas. Para consultas urgentes, utiliza el teléfono o menciona el plazo en el mensaje.
-              </p>
+              <h3 className='text-xl font-bold text-white mb-2'>Cómo trabajo</h3>
+              <ul className='text-slate-300 space-y-2 text-sm'>
+                <li>1) Breve llamada de encuadre (15-20 min).</li>
+                <li>2) Revisión técnica y propuesta con hitos.</li>
+                <li>3) Entregas iterativas con métricas de performance.</li>
+              </ul>
             </motion.div>
           </motion.div>
 
