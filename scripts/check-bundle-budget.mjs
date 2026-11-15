@@ -13,9 +13,10 @@ for (const modulePath of uniqueModules) {
   compressedBytes += gzipSync(source).byteLength;
 }
 
-const budgetBytes = 150 * 1024;
+// 170 KB: v2 home adds brand logos (simple-icons), cursor follower and tabbed sections.
+const budgetBytes = 170 * 1024;
 const compressedKilobytes = compressedBytes / 1024;
-console.log(`Critical JavaScript: ${compressedKilobytes.toFixed(1)} KB gzip / 150 KB budget.`);
+console.log(`Critical JavaScript: ${compressedKilobytes.toFixed(1)} KB gzip / 170 KB budget.`);
 
 if (compressedBytes > budgetBytes) {
   console.error(`Critical JavaScript exceeds the budget by ${((compressedBytes - budgetBytes) / 1024).toFixed(1)} KB gzip.`);
