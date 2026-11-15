@@ -1,50 +1,74 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { ArrowUpRight, Briefcase, MessageSquare, UserRound } from 'lucide-react';
+import { motion } from 'framer-motion';
 import Hero from '@/components/Hero';
 
 const quickLinks = [
-  { title: 'Sobre mí', to: '/about', desc: 'Perfil, enfoque y forma de trabajo.', icon: UserRound },
-  { title: 'Proyectos', to: '/projects', desc: 'Casos recientes y entregables clave.', icon: Briefcase },
-  { title: 'Contacto', to: '/contact', desc: 'Coordina una reunión o envía un mensaje.', icon: MessageSquare },
+  { title: 'Perfil', to: '/about', desc: 'Enfoque, stack y forma de trabajo.', icon: UserRound },
+  { title: 'Proyectos', to: '/projects', desc: 'Casos, entregables y decisiones técnicas.', icon: Briefcase },
+  { title: 'Contacto', to: '/contact', desc: 'Agenda una conversación concreta.', icon: MessageSquare },
 ];
 
 const Home = () => (
-  <div className='space-y-16'>
+  <div>
     <Hero />
 
-    <div className='container mx-auto px-4 lg:px-12'>
-      <div className='flex items-center gap-3 mb-6 text-amber-200/80 text-xs tracking-[0.28em] uppercase'>
-        <span className='h-px flex-1 bg-gradient-to-r from-transparent via-amber-400/60 to-transparent' aria-hidden='true'></span>
-        Accesos rápidos
-        <span className='h-px flex-1 bg-gradient-to-r from-transparent via-amber-400/60 to-transparent' aria-hidden='true'></span>
-      </div>
+    <section className='section-wrap pt-0'>
+      <div className='section-inner'>
+        <motion.div
+          initial={{ opacity: 0, y: 28, filter: 'blur(8px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.8, ease: [0.32, 0.72, 0, 1] }}
+          className='mb-8 flex items-end justify-between gap-6'
+        >
+          <div>
+            <span className='eyebrow'>Accesos rapidos</span>
+            <h2 className='section-title mt-4 max-w-3xl text-3xl md:text-5xl'>
+              Ve directo a lo que importa.
+            </h2>
+          </div>
+        </motion.div>
 
-      <div className='flex flex-col gap-4 lg:flex-row'>
-        {quickLinks.map((item) => {
-          const Icon = item.icon;
-          return (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              className='group flex-1 rounded-full border border-white/10 bg-white/5 px-5 py-4 flex items-center justify-between transition-all duration-200 hover:-translate-y-0.5 hover:border-amber-400/50 hover:bg-white/10'
-            >
-              <div className='flex items-center gap-3 min-w-0'>
-                <span className='inline-flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-sky-500/15 via-white/5 to-amber-400/20 border border-white/10'>
-                  <Icon size={18} className='text-amber-200' />
-                </span>
-                <div className='min-w-0'>
-                  <div className='text-sm text-amber-200 font-semibold'>{item.title}</div>
-                  <div className='text-slate-200 text-sm truncate'>{item.desc}</div>
-                </div>
-              </div>
-              <ArrowUpRight size={18} className='text-amber-200/80 opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200' />
-            </NavLink>
-          );
-        })}
+        <div className='grid gap-4 lg:grid-cols-3'>
+          {quickLinks.map((item, index) => {
+            const Icon = item.icon;
+            return (
+              <motion.div
+                key={item.to}
+                initial={{ opacity: 0, y: 30, filter: 'blur(8px)' }}
+                whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                viewport={{ once: true, margin: '-80px' }}
+                transition={{ duration: 0.75, delay: index * 0.08, ease: [0.32, 0.72, 0, 1] }}
+                className='premium-shell'
+              >
+                <NavLink
+                  to={item.to}
+                  className='premium-core group flex min-h-[180px] flex-col justify-between p-6 transition-transform duration-700 hover:-translate-y-1'
+                  style={{ transitionTimingFunction: 'var(--ease-out)' }}
+                >
+                  <div className='flex items-center justify-between'>
+                    <span className='flex h-11 w-11 items-center justify-center rounded-full bg-white/[0.08] text-amber-100'>
+                      <Icon size={18} strokeWidth={1.7} />
+                    </span>
+                    <span className='magnetic-icon bg-white text-slate-950'>
+                      <ArrowUpRight size={16} strokeWidth={1.7} />
+                    </span>
+                  </div>
+                  <div>
+                    <h3 className='font-display text-2xl font-semibold text-white'>{item.title}</h3>
+                    <p className='mt-2 text-sm leading-6 text-slate-300'>{item.desc}</p>
+                  </div>
+                </NavLink>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </section>
   </div>
 );
 
 export default Home;
+

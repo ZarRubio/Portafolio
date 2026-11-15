@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Routes, Route } from 'react-router-dom';
@@ -18,12 +17,15 @@ function App() {
   return (
     <>
       <Helmet>
-        <title>Adrián Gustavo Rubio Calixto | Software Engineer (Backend & Web)</title>
-        <meta name="description" content="Ingeniero de software full-stack con foco en backend/APIs (Java, Spring Boot, MySQL) y optimización de e-commerce WooCommerce. Documentación de arquitectura UML/C4 y performance web." />
+        <title>Adrian Gustavo Rubio Calixto | Software Engineer (Backend & Web)</title>
+        <meta
+          name='description'
+          content='Ingeniero de software full-stack con foco en backend/APIs (Java, Spring Boot, MySQL) y optimización de e-commerce WooCommerce. Documentación de arquitectura UML/C4 y performance web.'
+        />
       </Helmet>
-      <div className='min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-black text-white'>
+      <div className='page-shell min-h-screen text-white'>
         <Navigation />
-        <main className='pt-16'>
+        <main className='pt-24'>
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/about' element={<AboutPage />} />

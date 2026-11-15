@@ -1,102 +1,91 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Database, FileCode2, Gauge, Wrench } from 'lucide-react';
 import { useInView } from '@/hooks/useInView';
 
-const Skills = () => {
-  const [ref, isInView] = useInView({ threshold: 0.2 });
+const skillCategories = [
+  {
+    category: 'Backend & APIs',
+    icon: Database,
+    skills: ['Java', 'Spring Boot', 'REST APIs', 'JPA / Hibernate', 'MySQL'],
+  },
+  {
+    category: 'Frontend',
+    icon: FileCode2,
+    skills: ['Angular', 'React', 'TailwindCSS', 'UX/UI'],
+  },
+  {
+    category: 'Datos & Comercio',
+    icon: Gauge,
+    skills: ['WooCommerce', 'Catálogo & SKUs', 'Performance Web', 'Core Web Vitals'],
+  },
+  {
+    category: 'Tooling & Documentación',
+    icon: Wrench,
+    skills: ['Maven', 'Git', 'UML / C4', 'Automatización'],
+  },
+];
 
-  const skillCategories = [
-    {
-      category: 'Backend & APIs',
-      skills: [
-        { name: 'Java', level: 86 },
-        { name: 'Spring Boot', level: 84 },
-        { name: 'REST APIs', level: 90 },
-        { name: 'JPA / Hibernate', level: 82 },
-        { name: 'MySQL', level: 80 }
-      ]
-    },
-    {
-      category: 'Frontend',
-      skills: [
-        { name: 'Angular', level: 78 },
-        { name: 'React', level: 72 },
-        { name: 'TailwindCSS', level: 80 },
-        { name: 'UX/UI', level: 74 }
-      ]
-    },
-    {
-      category: 'Datos & Comercio',
-      skills: [
-        { name: 'WordPress / WooCommerce', level: 82 },
-        { name: 'Catálogo & SKUs', level: 85 },
-        { name: 'Performance Web', level: 80 },
-        { name: 'Lighthouse / Core Web Vitals', level: 76 }
-      ]
-    },
-    {
-      category: 'Tooling & Documentación',
-      skills: [
-        { name: 'Maven', level: 85 },
-        { name: 'Git', level: 92 },
-        { name: 'UML / C4', level: 88 },
-        { name: 'Automatización', level: 80 }
-      ]
-    }
-  ];
+const Skills = () => {
+  const [ref, isInView] = useInView({ threshold: 0.18 });
 
   return (
-    <section id='skills' className='py-20 lg:py-32 relative overflow-hidden'>
-      <div className='absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/10 to-transparent'></div>
-      
-      <div className='container mx-auto px-4 lg:px-8 relative z-10' ref={ref}>
+    <section id='skills' className='section-wrap'>
+      <div className='section-inner' ref={ref}>
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className='text-center mb-16'
+          initial={{ opacity: 0, y: 36, filter: 'blur(10px)' }}
+          animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+          transition={{ duration: 0.85, ease: [0.32, 0.72, 0, 1] }}
+          className='mb-14 max-w-4xl'
         >
-          <h2 className='text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-sky-300 to-amber-300 bg-clip-text text-transparent'>
-            Habilidades Técnicas
-          </h2>
-          <div className='w-20 h-1 bg-gradient-to-r from-sky-500 to-amber-400 mx-auto rounded-full'></div>
+          <span className='eyebrow'>Habilidades</span>
+          <h2 className='section-title mt-5'>Stack compacto para entregar de punta a punta.</h2>
+          <p className='section-copy mt-6'>
+            Priorizo herramientas que ayudan a construir, explicar y mantener: servicios backend, integraciones web, datos limpios y documentación que realmente se usa.
+          </p>
         </motion.div>
 
-        <div className='grid md:grid-cols-2 gap-8 max-w-6xl mx-auto'>
-          {skillCategories.map((category, categoryIndex) => (
-            <motion.div
-              key={categoryIndex}
-              initial={{ opacity: 0, x: categoryIndex % 2 === 0 ? -50 : 50 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
-              className='glass-panel rounded-xl p-8 hover:border-amber-400/40 transition-all duration-300'
-            >
-              <h3 className='text-2xl font-bold mb-6 text-amber-300'>
-                {category.category}
-              </h3>
-              <div className='space-y-6'>
-                {category.skills.map((skill, skillIndex) => (
-                  <div key={skillIndex}>
-                    <div className='flex justify-between mb-2'>
-                      <span className='text-gray-300 font-medium'>{skill.name}</span>
-                      <span className='text-blue-400 font-semibold'>{skill.level}%</span>
+        <div className='grid gap-5 md:grid-cols-2'>
+          {skillCategories.map((category, categoryIndex) => {
+            const Icon = category.icon;
+            return (
+              <motion.div
+                key={category.category}
+                initial={{ opacity: 0, y: 36, filter: 'blur(10px)' }}
+                animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+                transition={{ duration: 0.75, delay: categoryIndex * 0.08, ease: [0.32, 0.72, 0, 1] }}
+                className='premium-shell'
+              >
+                <div className='premium-core p-6 md:p-8'>
+                  <div className='mb-8 flex items-center justify-between gap-4'>
+                    <div>
+                      <p className='text-[10px] font-bold uppercase tracking-[0.22em] text-amber-100'>
+                        Area {String(categoryIndex + 1).padStart(2, '0')}
+                      </p>
+                      <h3 className='font-display mt-2 text-2xl font-semibold text-white'>{category.category}</h3>
                     </div>
-                    <div className='h-2 bg-gray-700 rounded-full overflow-hidden'>
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={isInView ? { width: `${skill.level}%` } : {}}
-                        transition={{ duration: 1, delay: categoryIndex * 0.1 + skillIndex * 0.05, ease: 'easeOut' }}
-                        className='h-full bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full relative'
-                      >
-                        <div className='absolute inset-0 bg-white/20 animate-pulse'></div>
-                      </motion.div>
+                    <div className='flex h-12 w-12 items-center justify-center rounded-full bg-white text-slate-950'>
+                      <Icon size={20} strokeWidth={1.7} />
                     </div>
                   </div>
-                ))}
-              </div>
-            </motion.div>
-          ))}
+
+                  <div className='flex flex-wrap gap-2'>
+                    {category.skills.map((skill, index) => (
+                      <motion.span
+                        key={skill}
+                        initial={{ opacity: 0, y: 14 }}
+                        animate={isInView ? { opacity: 1, y: 0 } : {}}
+                        transition={{ duration: 0.55, delay: 0.12 + categoryIndex * 0.06 + index * 0.04, ease: [0.32, 0.72, 0, 1] }}
+                        className='rounded-full border border-white/10 bg-white/[0.045] px-4 py-2 text-sm font-semibold text-slate-200'
+                      >
+                        {skill}
+                      </motion.span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

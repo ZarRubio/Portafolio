@@ -1,100 +1,78 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useInView } from '@/hooks/useInView';
-import { Award, ExternalLink } from 'lucide-react';
+import { ArrowUpRight, Award } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useInView } from '@/hooks/useInView';
 import { useToast } from '@/components/ui/use-toast';
 
-const Certifications = () => {
-  const [ref, isInView] = useInView({ threshold: 0.2 });
-  const { toast } = useToast();
+const certifications = [
+  ['API REST con validaciones', 'Spring Boot / MySQL', '2024'],
+  ['Optimización de e-commerce', 'WooCommerce / Core Web Vitals', '2023'],
+  ['Arquitectura documentada', 'UML / C4', '2023'],
+  ['Automatizacion de catalogos', 'Datos / SKUs', '2023'],
+];
 
-  const certifications = [
-    {
-      name: 'API REST con validaciones y reglas de negocio',
-      issuer: 'Spring Boot · MySQL',
-      date: '2024',
-      icon: 'API reliability and data validation'
-    },
-    {
-      name: 'Optimización de e-commerce (Lighthouse/Core Web Vitals)',
-      issuer: 'WordPress / WooCommerce',
-      date: '2023',
-      icon: 'Performance tuning for storefronts'
-    },
-    {
-      name: 'Arquitectura documentada (UML/C4)',
-      issuer: 'Healthy Plus / ChaskiMarket',
-      date: '2023',
-      icon: 'Architecture diagrams and documentation'
-    },
-    {
-      name: 'Estandarización y automatización de catálogos',
-      issuer: 'Automatización de datos',
-      date: '2023',
-      icon: 'SKU normalization and automation'
-    }
-  ];
+const Certifications = () => {
+  const [ref, isInView] = useInView({ threshold: 0.18 });
+  const { toast } = useToast();
 
   const handleVerify = () => {
     toast({
-      title: "🚧 Esta función no está implementada aún",
-      description: "¡Pero no te preocupes! Puedes solicitarla en tu próximo mensaje. 🚀",
+      title: 'Detalle en preparación',
+      description: 'Aquí se pueden enlazar certificados, PDFs o casos extendidos cuando estén publicados.',
     });
   };
 
   return (
-    <section id='certifications' className='py-20 lg:py-32 relative'>
-      <div className='absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/10 to-transparent'></div>
-      
-      <div className='container mx-auto px-4 lg:px-8 relative z-10' ref={ref}>
+    <section id='certifications' className='section-wrap'>
+      <div className='section-inner' ref={ref}>
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className='text-center mb-16'
+          initial={{ opacity: 0, y: 36, filter: 'blur(10px)' }}
+          animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+          transition={{ duration: 0.85, ease: [0.32, 0.72, 0, 1] }}
+          className='mb-14 max-w-4xl'
         >
-          <h2 className='text-4xl md:text-5xl font-bold leading-tight md:leading-[1.15] mb-4 bg-gradient-to-r from-sky-300 to-amber-300 bg-clip-text text-transparent'>
-            Logros clave
-          </h2>
-          <div className='w-20 h-1 bg-gradient-to-r from-sky-500 to-amber-400 mx-auto rounded-full'></div>
+          <span className='eyebrow'>Logros</span>
+          <h2 className='section-title mt-5'>Evidencia de aprendizaje aplicado.</h2>
+          <p className='section-copy mt-6'>
+            Estos bloques resumen capacidades concretas que se pueden ampliar con enlaces, repositorios o casos de estudio.
+          </p>
         </motion.div>
 
-        <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto'>
-          {certifications.map((cert, index) => (
+        <div className='grid gap-5 md:grid-cols-2'>
+          {certifications.map(([name, issuer, date], index) => (
             <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -5, scale: 1.02 }}
-              className='glass-panel rounded-xl p-6 hover:border-amber-400/40 transition-all duration-300 group'
+              key={name}
+              initial={{ opacity: 0, y: 34, filter: 'blur(8px)' }}
+              animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+              transition={{ duration: 0.72, delay: index * 0.07, ease: [0.32, 0.72, 0, 1] }}
+              className='premium-shell'
             >
-              <div className='flex items-start justify-between mb-4'>
-                <div className='w-16 h-16 bg-gradient-to-br from-sky-500/20 to-amber-500/20 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300'>
-                  <Award className='text-amber-300' size={32} />
+              <div className='premium-core flex h-full flex-col justify-between gap-8 p-6'>
+                <div className='flex items-start justify-between gap-4'>
+                  <div className='flex h-12 w-12 items-center justify-center rounded-full bg-amber-200 text-slate-950'>
+                    <Award size={20} strokeWidth={1.7} />
+                  </div>
+                  <span className='rounded-full bg-white/[0.08] px-3 py-1 text-xs font-bold text-slate-300'>{date}</span>
                 </div>
-                <span className='px-3 py-1 text-xs font-medium bg-sky-500/10 text-sky-100 rounded-full border border-sky-500/30'>
-                  {cert.date}
-                </span>
+
+                <div>
+                  <h3 className='font-display text-2xl font-semibold text-white'>{name}</h3>
+                  <p className='mt-2 text-sm font-semibold uppercase tracking-[0.16em] text-slate-400'>{issuer}</p>
+                </div>
+
+                <Button
+                  onClick={handleVerify}
+                  variant='outline'
+                  size='sm'
+                  className='magnetic-btn h-auto w-full border-white/10 bg-white/[0.035] text-white hover:bg-white/10 hover:text-white'
+                >
+                  Ver detalle
+                  <span className='magnetic-icon bg-white text-slate-950'>
+                    <ArrowUpRight size={15} strokeWidth={1.7} />
+                  </span>
+                </Button>
               </div>
-
-              <h3 className='text-lg font-bold leading-snug text-white mb-2 group-hover:text-amber-300 transition-colors duration-300'>
-                {cert.name}
-              </h3>
-              
-              <p className='text-slate-300 text-sm mb-4'>{cert.issuer}</p>
-
-              <Button
-                onClick={handleVerify}
-                variant='outline'
-                size='sm'
-                className='w-full border-white/10 text-slate-200 hover:bg-white/5 hover:text-white hover:border-amber-400/40 transition-all duration-300'
-              >
-                <ExternalLink size={16} className='mr-2' />
-                Ver detalle
-              </Button>
             </motion.div>
           ))}
         </div>
@@ -104,3 +82,4 @@ const Certifications = () => {
 };
 
 export default Certifications;
+

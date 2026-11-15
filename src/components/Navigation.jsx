@@ -1,118 +1,146 @@
-
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowUpRight } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
+
+const navItems = [
+  { name: 'Inicio', to: '/' },
+  { name: 'Perfil', to: '/about' },
+  { name: 'Proyectos', to: '/projects' },
+  { name: 'Skills', to: '/skills' },
+  { name: 'Experiencia', to: '/experience' },
+  { name: 'Logros', to: '/certifications' },
+  { name: 'Contacto', to: '/contact' },
+];
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > 24);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navItems = [
-    { name: 'Inicio', to: '/' },
-    { name: 'Sobre Mí', to: '/about' },
-    { name: 'Proyectos', to: '/projects' },
-    { name: 'Habilidades', to: '/skills' },
-    { name: 'Experiencia', to: '/experience' },
-    { name: 'Certificaciones', to: '/certifications' },
-    { name: 'Contacto', to: '/contact' }
-  ];
-
   return (
     <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-slate-950/90 backdrop-blur-xl shadow-lg shadow-sky-500/10 border-b border-white/5' : 'bg-transparent'
-      }`}
+      initial={{ opacity: 0, y: -24 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
+      className='fixed left-0 right-0 top-0 z-40 px-4 pt-5'
     >
-      <div className='container mx-auto px-4 lg:px-8'>
-        <div className='flex items-center justify-between h-16'>
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+      <div
+        className={`mx-auto flex max-w-6xl items-center justify-between rounded-full border px-3 py-2 transition-all duration-700 ${
+          isScrolled
+            ? 'border-white/[0.12] bg-slate-950/[0.78] shadow-[0_20px_70px_rgba(0,0,0,0.28)] backdrop-blur-2xl'
+            : 'border-white/10 bg-white/[0.035] backdrop-blur-xl'
+        }`}
+        style={{ transitionTimingFunction: 'var(--ease-out)' }}
+      >
+        <NavLink
+          to='/'
+          className='group flex items-center gap-3 rounded-full py-1 pl-1 pr-4'
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
+          <span className='flex h-10 w-10 items-center justify-center rounded-full bg-white text-sm font-extrabold text-slate-950'>
+            AR
+          </span>
+          <span className='font-display hidden text-sm font-semibold tracking-wide text-white sm:block'>
+            Adrian Rubio
+          </span>
+        </NavLink>
+
+        <div className='hidden items-center gap-1 lg:flex'>
+          {navItems.map((item) => (
             <NavLink
-              to='/'
-              className='text-xl font-bold bg-gradient-to-r from-sky-300 via-sky-100 to-amber-300 bg-clip-text text-transparent'
-              onClick={() => setIsMobileMenuOpen(false)}
+              key={item.name}
+              to={item.to}
+              className={({ isActive }) =>
+                `rounded-full px-4 py-2 text-xs font-bold transition-all duration-700 ${
+                  isActive
+                    ? 'bg-white text-slate-950'
+                    : 'text-slate-300 hover:bg-white/[0.08] hover:text-white'
+                }`
+              }
+              style={{ transitionTimingFunction: 'var(--ease-out)' }}
             >
-              {'<Adrián Rubio />'}
+              {item.name}
             </NavLink>
-          </motion.div>
-
-          <div className='hidden md:flex items-center space-x-1'>
-            {navItems.map((item, index) => (
-              <motion.div
-                key={item.name}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.05 }}
-              >
-                <NavLink
-                  to={item.to}
-                  className={({ isActive }) =>
-                    `px-3 py-2 text-sm font-medium rounded-lg border transition-all duration-200 relative group ${
-                      isActive
-                        ? 'text-amber-200 border-amber-500/50 bg-amber-500/10 shadow-[0_6px_20px_rgba(251,191,36,0.08)]'
-                        : 'text-slate-200 border-white/10 bg-white/5 hover:text-amber-200 hover:border-amber-500/30 hover:bg-amber-500/5'
-                    }`
-                  }
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {item.name}
-                  <span className='absolute bottom-1 left-2 h-0.5 w-0 bg-gradient-to-r from-sky-400 to-amber-400 group-hover:w-8 transition-all duration-300'></span>
-                </NavLink>
-              </motion.div>
-            ))}
-          </div>
-
-          <button
-            className='md:hidden text-gray-300 hover:text-blue-400 transition-colors'
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label='Toggle menu'
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          ))}
         </div>
 
+        <NavLink
+          to='/contact'
+          className='magnetic-btn hidden bg-amber-200 text-slate-950 hover:bg-white md:inline-flex'
+        >
+          Hablemos
+          <span className='magnetic-icon bg-slate-950 text-white'>
+            <ArrowUpRight size={15} strokeWidth={1.7} />
+          </span>
+        </NavLink>
+
+        <button
+          className='relative flex h-11 w-11 items-center justify-center rounded-full bg-white text-slate-950 transition-transform duration-700 active:scale-95 lg:hidden'
+          onClick={() => setIsMobileMenuOpen((value) => !value)}
+          aria-label='Abrir menu'
+          aria-expanded={isMobileMenuOpen}
+          style={{ transitionTimingFunction: 'var(--ease-out)' }}
+        >
+          <span
+            className={`absolute h-px w-5 bg-current transition-transform duration-700 ${
+              isMobileMenuOpen ? 'translate-y-0 rotate-45' : '-translate-y-1.5'
+            }`}
+            style={{ transitionTimingFunction: 'var(--ease-out)' }}
+          />
+          <span
+            className={`absolute h-px w-5 bg-current transition-transform duration-700 ${
+              isMobileMenuOpen ? 'translate-y-0 -rotate-45' : 'translate-y-1.5'
+            }`}
+            style={{ transitionTimingFunction: 'var(--ease-out)' }}
+          />
+        </button>
+      </div>
+
+      <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className='md:hidden bg-slate-900/95 backdrop-blur-lg rounded-lg mt-2 mb-4 overflow-hidden border border-white/5'
+            initial={{ opacity: 0, y: -10, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.98 }}
+            transition={{ duration: 0.45, ease: [0.32, 0.72, 0, 1] }}
+            className='mx-auto mt-3 max-w-6xl rounded-[2rem] border border-white/10 bg-slate-950/88 p-3 shadow-[0_28px_80px_rgba(0,0,0,0.35)] backdrop-blur-2xl lg:hidden'
           >
-            <div className='flex flex-col space-y-2 p-4'>
-              {navItems.map((item) => (
-                <NavLink
+            <div className='grid gap-2'>
+              {navItems.map((item, index) => (
+                <motion.div
                   key={item.name}
-                  to={item.to}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className={({ isActive }) =>
-                    `px-4 py-3 text-sm font-medium rounded-lg border transition-all duration-200 ${
-                      isActive
-                        ? 'text-amber-200 bg-amber-500/10 border-amber-500/40'
-                        : 'text-slate-200 border-white/10 bg-white/5 hover:text-amber-200 hover:border-amber-500/30 hover:bg-amber-500/5'
-                    }`
-                  }
+                  initial={{ opacity: 0, y: 18 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.05 + index * 0.035, duration: 0.45, ease: [0.32, 0.72, 0, 1] }}
                 >
-                  {item.name}
-                </NavLink>
+                  <NavLink
+                    to={item.to}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={({ isActive }) =>
+                      `flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-bold transition-all duration-700 ${
+                        isActive ? 'bg-white text-slate-950' : 'text-slate-200 hover:bg-white/[0.08]'
+                      }`
+                    }
+                  >
+                    {item.name}
+                    <ArrowUpRight size={15} strokeWidth={1.7} />
+                  </NavLink>
+                </motion.div>
               ))}
             </div>
           </motion.div>
         )}
-      </div>
+      </AnimatePresence>
     </motion.nav>
   );
 };
 
 export default Navigation;
+
