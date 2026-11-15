@@ -1,4 +1,8 @@
-const required = ['VITE_SITE_URL', 'VITE_FORMSPREE_FORM_ID'];
+const required = ['VITE_SITE_URL'];
+
+if (!process.env.VITE_FORMSPREE_FORM_ID?.trim()) {
+  console.warn('VITE_FORMSPREE_FORM_ID not set: the contact section will show direct email/LinkedIn instead of the form.');
+}
 const missing = required.filter((name) => !process.env[name]?.trim());
 
 if (missing.length > 0) {
@@ -25,7 +29,7 @@ if (/your-domain|example\.com|tu-dominio/i.test(siteUrl.hostname)) {
   process.exit(1);
 }
 
-if (/your-form-id|testform/i.test(process.env.VITE_FORMSPREE_FORM_ID)) {
+if (/your-form-id|testform/i.test(process.env.VITE_FORMSPREE_FORM_ID || '')) {
   console.error('VITE_FORMSPREE_FORM_ID still contains an example value. Configure the final Formspree form ID.');
   process.exit(1);
 }

@@ -5,6 +5,12 @@
 /** @typedef {{ period: string, content: Record<Locale, object> }} ExperienceItem */
 /** @typedef {{ name: LocalizedText, issuer: string, year: string, certificateUrl: string | null }} Credential */
 
+// Public files live under the deploy base path ('/' on Hostinger, '/Portafolio/' on GitHub Pages).
+export function asset(pathname) {
+  const base = (typeof import.meta !== 'undefined' && import.meta.env?.BASE_URL) || '/';
+  return `${base.replace(/\/$/, '')}${pathname}`;
+}
+
 export const LOCALES = ['es', 'en'];
 export const DEFAULT_LOCALE = 'es';
 
@@ -19,7 +25,7 @@ export const profile = {
     es: 'Lima, Perú · Híbrido o remoto',
     en: 'Lima, Peru · Hybrid or remote',
   },
-  portrait: '/adrian-rubio.jpg',
+  portrait: asset('/adrian-rubio.jpg'),
   portraitAlt: {
     es: 'Retrato de Adrián Gustavo Rubio Calixto',
     en: 'Portrait of Adrián Gustavo Rubio Calixto',
@@ -28,7 +34,7 @@ export const profile = {
     github: 'https://github.com/ZarRubio',
     linkedin: 'https://www.linkedin.com/in/adrianrubiocalixto/',
   },
-  cvUrl: '/CV_Adrian_Rubio_Calixto.pdf',
+  cvUrl: asset('/CV_Adrian_Rubio_Calixto.pdf'),
 };
 
 export const dictionary = {
@@ -159,7 +165,7 @@ export const dictionary = {
       success: 'Gracias por el contexto. Te responderé lo antes posible.',
       errorTitle: 'No se pudo enviar',
       error: 'Puedes intentarlo nuevamente o escribirme directamente por email.',
-      configurationMissing: 'El formulario se habilitará al configurar Formspree.',
+      configurationMissing: 'Escríbeme directamente por correo o LinkedIn; respondo en 24–48 horas.',
       direct: 'Contacto directo',
       privacy: 'Usaré estos datos únicamente para responder tu mensaje.',
     },
@@ -317,7 +323,7 @@ export const dictionary = {
       success: 'Thank you for the context. I will get back to you as soon as possible.',
       errorTitle: 'Message not sent',
       error: 'Please try again or contact me directly by email.',
-      configurationMissing: 'The form will be enabled once Formspree is configured.',
+      configurationMissing: 'Write to me directly by email or LinkedIn; I usually reply within 24–48 hours.',
       direct: 'Direct contact',
       privacy: 'I will only use this information to reply to your message.',
     },
@@ -512,7 +518,7 @@ export const credentials = [
 export const projectCases = [
   {
     id: 'pumpyia',
-    image: { src: '/projects/pumpyia.svg', alt: { es: 'Ilustración del asistente: pasos del agente, resultado y revisión humana (datos ficticios)', en: 'Illustration of the assistant: agent steps, result, and human review (fictitious data)' } },
+    image: { src: asset('/projects/pumpyia.svg'), alt: { es: 'Ilustración del asistente: pasos del agente, resultado y revisión humana (datos ficticios)', en: 'Illustration of the assistant: agent steps, result, and human review (fictitious data)' } },
     slugs: { es: 'pumpyia', en: 'pumpyia' },
     year: '2026',
     accent: 'cyan',
@@ -577,7 +583,7 @@ export const projectCases = [
   },
   {
     id: 'cotizador-movil',
-    image: { src: '/projects/cotizador.svg', alt: { es: 'Ilustración del cotizador móvil y la aprobación del cliente (datos ficticios)', en: 'Illustration of the mobile quoting app and customer approval (fictitious data)' } },
+    image: { src: asset('/projects/cotizador.svg'), alt: { es: 'Ilustración del cotizador móvil y la aprobación del cliente (datos ficticios)', en: 'Illustration of the mobile quoting app and customer approval (fictitious data)' } },
     slugs: { es: 'cotizador-movil', en: 'mobile-quoting-app' },
     year: '2026',
     accent: 'violet',
@@ -642,7 +648,7 @@ export const projectCases = [
   },
   {
     id: 'cxr-classifier',
-    image: { src: '/projects/cxr-analizar.png', alt: { es: 'Captura de CXR Classifier: pantalla de nuevo estudio', en: 'CXR Classifier screenshot: new study screen' } },
+    image: { src: asset('/projects/cxr-analizar.png'), alt: { es: 'Captura de CXR Classifier: pantalla de nuevo estudio', en: 'CXR Classifier screenshot: new study screen' } },
     slugs: { es: 'cxr-classifier', en: 'cxr-classifier' },
     year: '2026',
     accent: 'amber',
@@ -706,7 +712,7 @@ export const projectCases = [
   },
   {
     id: 'sahm-parts-nbg',
-    image: { src: '/projects/sahm-parts.jpg', alt: { es: 'Captura de la portada de sahmparts.com', en: 'Screenshot of the sahmparts.com home page' } },
+    image: { src: asset('/projects/sahm-parts.jpg'), alt: { es: 'Captura de la portada de sahmparts.com', en: 'Screenshot of the sahmparts.com home page' } },
     slugs: { es: 'sahm-parts-nbg', en: 'sahm-parts-nbg' },
     year: '2025',
     accent: 'cyan',
@@ -770,7 +776,7 @@ export const projectCases = [
   },
   {
     id: 'apfel-store',
-    image: { src: '/projects/apfel-store.jpg', alt: { es: 'Captura de la portada de Apfel Store', en: 'Screenshot of the Apfel Store home page' } },
+    image: { src: asset('/projects/apfel-store.jpg'), alt: { es: 'Captura de la portada de Apfel Store', en: 'Screenshot of the Apfel Store home page' } },
     slugs: { es: 'apfel-store', en: 'apfel-store' },
     year: '2026',
     accent: 'violet',
@@ -832,7 +838,7 @@ export const projectCases = [
   },
   {
     id: 'mesa-de-ayuda',
-    image: { src: '/projects/incidencias.svg', alt: { es: 'Ilustración de un tablero de tickets con máquina de estados y auditoría (datos ficticios)', en: 'Illustration of a ticket board with a state machine and audit log (fictitious data)' } },
+    image: { src: asset('/projects/incidencias.svg'), alt: { es: 'Ilustración de un tablero de tickets con máquina de estados y auditoría (datos ficticios)', en: 'Illustration of a ticket board with a state machine and audit log (fictitious data)' } },
     slugs: { es: 'mesa-de-ayuda', en: 'helpdesk-system' },
     year: '2026',
     accent: 'amber',
@@ -894,7 +900,7 @@ export const projectCases = [
   },
   {
     id: 'fitsense',
-    image: { src: '/projects/fitsense-landing.jpg', alt: { es: 'Captura de la landing page de FitSense', en: 'Screenshot of the FitSense landing page' } },
+    image: { src: asset('/projects/fitsense-landing.jpg'), alt: { es: 'Captura de la landing page de FitSense', en: 'Screenshot of the FitSense landing page' } },
     slugs: { es: 'fitsense', en: 'fitsense' },
     year: '2025',
     accent: 'cyan',

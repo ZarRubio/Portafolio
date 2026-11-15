@@ -3,9 +3,10 @@ import './styles/home.css';
 
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, useLocation } from 'react-router';
 import { HashScroll } from '@/components/HashScroll';
+import { asset } from '@/content/portfolio';
 
 export const links = () => [
-  { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+  { rel: 'icon', type: 'image/svg+xml', href: asset('/favicon.svg') },
 ];
 
 export function Layout({ children }) {

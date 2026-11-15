@@ -33,7 +33,7 @@ export function ContactForm({ locale, formId = import.meta.env.VITE_FORMSPREE_FO
       <div className='contact-details'>
         <div className='bezel'>
           <div className='bezel-core contact-person'>
-            <img src='/adrian-rubio.jpg' width='640' height='640' alt={profile.portraitAlt[locale]} loading='lazy' />
+            <img src={profile.portrait} width='640' height='640' alt={profile.portraitAlt[locale]} loading='lazy' />
             <div>
               <span className='contact-label'>{copy.direct}</span>
               <strong>{profile.shortName}</strong>

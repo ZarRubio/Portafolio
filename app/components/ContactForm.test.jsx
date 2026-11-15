@@ -42,6 +42,6 @@ describe('ContactForm', () => {
   it('shows a mail fallback when Formspree is not configured', () => {
     render(<ContactForm locale='en' formId='' />);
     expect(screen.queryByRole('form')).not.toBeInTheDocument();
-    expect(screen.getByText(/form will be enabled/i)).toBeInTheDocument();
+    expect(screen.getByText(/write to me directly/i)).toBeInTheDocument();
   });
 });
