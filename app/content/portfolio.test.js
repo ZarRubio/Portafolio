@@ -15,7 +15,7 @@ describe('bilingual portfolio content', () => {
     expect(LOCALES).toEqual(['es', 'en']);
     expect(dictionary.es.hero.title).toBeTruthy();
     expect(dictionary.en.hero.title).toBeTruthy();
-    expect(projectCases).toHaveLength(7);
+    expect(projectCases).toHaveLength(8);
 
     for (const project of projectCases) {
       for (const locale of LOCALES) {
@@ -28,9 +28,9 @@ describe('bilingual portfolio content', () => {
     }
   });
 
-  it('generates the sixteen static routes without duplicates', () => {
+  it('generates the eighteen static routes without duplicates', () => {
     const routes = getPrerenderPaths();
-    expect(routes).toHaveLength(16);
+    expect(routes).toHaveLength(18);
     expect(new Set(routes).size).toBe(routes.length);
     expect(routes).toContain('/');
     expect(routes).toContain('/en');

@@ -711,6 +711,78 @@ export const projectCases = [
     },
   },
   {
+    id: 'job-alerts-engine',
+    image: {
+      src: asset('/projects/job-alerts.png'),
+      alt: {
+        es: 'Correo de alertas de ejemplo con avisos ficticios: encaje, puntaje, de qué trata el puesto, stack pedido y motivos del puntaje',
+        en: 'Example alert email with synthetic postings: fit, score, what the job is about, the stack it asks for and the reasons behind the score',
+      },
+    },
+    slugs: { es: 'job-alerts-engine', en: 'job-alerts-engine' },
+    year: '2026',
+    accent: 'violet',
+    stack: ['Python', 'TypeScript', 'Bun', 'GitHub Actions', 'ruff', 'mypy', 'Claude Code'],
+    diagram: {
+      es: ['Portales', 'Puntaje explicable', 'Evaluación', 'Correo'],
+      en: ['Job boards', 'Explainable score', 'Evaluation', 'Email'],
+    },
+    metrics: [
+      { value: '0.72 → 0.90', label: { es: 'F1 sobre 226 avisos etiquetados', en: 'F1 on 226 labelled postings' } },
+    ],
+    links: { repositoryUrl: 'https://github.com/ZarRubio/job-alerts-engine', demoUrl: null },
+    content: {
+      es: {
+        eyebrow: 'Automatización · Evaluación',
+        title: 'Job Alerts Engine',
+        summary: 'Pipeline que busca avisos de empleo dos veces al día, los puntúa con un modelo explicable y envía por correo solo los que vale la pena postular, con un resumen de cada puesto.',
+        role: 'Proyecto personal · diseño y desarrollo dirigiendo Claude Code',
+        status: 'En uso diario · código abierto (MIT)',
+        problem: 'Cientos de avisos al día, la mayoría irrelevantes: el filtro por palabras clave avisaba de demasiado y no decía de qué trataba cada puesto.',
+        constraints: [
+          'Sin costo por corrida: reglas deterministas, sin depender de un LLM.',
+          'Cada punto del puntaje tiene que poder explicarse en el correo.',
+          'Credenciales y datos personales fuera de git.',
+        ],
+        decisions: [
+          ['Dos ejes de puntaje', 'El título define el rol; la descripción mide qué parte del stack pedido domina el candidato, sobre unas 100 tecnologías.'],
+          ['Medir, no adivinar', 'Corpus de 226 avisos reales etiquetados a mano y un evaluador de precisión, recall y F1; el CI falla si un ajuste empeora las métricas.'],
+          ['Configuración separada', 'Las reglas generales y el perfil del candidato viven en JSON; adaptarlo a otra persona es editar un archivo, no código.'],
+        ],
+        outcomes: [
+          'F1 de 0.72 a 0.90 y 100% de precisión en las alertas de encaje alto (ajustado y medido sobre el mismo corpus; evaluación hold-out pendiente).',
+          'Conectores en TypeScript/Bun para Get on Board, Remotive y Himalayas, con tests sin red.',
+          'Probé una capa con Gemini que resume cada aviso; con los criterios del candidato empató con las reglas (F1 0.908 vs 0.902), así que quedó como anotación en el correo y no decide.',
+          'Paquete instalable, 54 tests, cobertura ≥85%, ruff, mypy y releases versionadas.',
+        ],
+      },
+      en: {
+        eyebrow: 'Automation · Evaluation',
+        title: 'Job Alerts Engine',
+        summary: 'A pipeline that searches job boards twice a day, scores postings with an explainable model and emails only the ones worth applying to, with a summary of each job.',
+        role: 'Personal project · designed and built directing Claude Code',
+        status: 'In daily use · open source (MIT)',
+        problem: 'Hundreds of postings a day, most irrelevant: keyword filtering alerted on too much and never said what each job was about.',
+        constraints: [
+          'No cost per run: deterministic rules, no dependency on an LLM.',
+          'Every point of the score has to be explainable in the email.',
+          'Credentials and personal data kept out of git.',
+        ],
+        decisions: [
+          ['Two scoring axes', 'The title defines the role; the description measures how much of the requested stack the candidate has, across ~100 technologies.'],
+          ['Measure, don’t guess', 'A corpus of 226 real postings labelled by hand and a precision/recall/F1 evaluator; CI fails if a tuning change makes the metrics worse.'],
+          ['Configuration, not code', 'Generic rules and the candidate profile live in JSON; adapting it to someone else means editing a file, not Python.'],
+        ],
+        outcomes: [
+          'F1 from 0.72 to 0.90 and 100% precision on high-fit alerts (tuned and measured on the same corpus; hold-out evaluation pending).',
+          'TypeScript/Bun connectors for Get on Board, Remotive and Himalayas, with network-free tests.',
+          'Tested a Gemini layer that summarises each posting; with the candidate’s criteria it tied with the rules (F1 0.908 vs 0.902), so it annotates the email instead of deciding.',
+          'Installable package, 54 tests, ≥85% coverage, ruff, mypy and versioned releases.',
+        ],
+      },
+    },
+  },
+  {
     id: 'sahm-parts-nbg',
     image: { src: asset('/projects/sahm-parts.jpg'), alt: { es: 'Captura de la portada de sahmparts.com', en: 'Screenshot of the sahmparts.com home page' } },
     slugs: { es: 'sahm-parts-nbg', en: 'sahm-parts-nbg' },
